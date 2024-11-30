@@ -186,5 +186,4 @@ Java Developer
 ---
 
 <div align="center">
-Made with ❤️ by [Suman Bisunkhe](https://github.com/sumanbisunkhe)
-</div>
+Made with ❤️ by [Suman Bisunkhe](https://github.com/sumanbisunkhe)</div>
