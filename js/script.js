@@ -21,6 +21,50 @@ const DOM = {
     },
     fadeElements: document.querySelectorAll('.project-card, .skill-item, .education-item')
   };
+
+// menu-toggle
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const sidebar = document.querySelector(".sidebar");
+  const navLinks = document.querySelectorAll(".sidebar .nav-link"); // Select all nav-links inside the sidebar
+  const overlay = document.querySelector(".sidebar-overlay"); // Optional overlay if you want to click outside to close
+
+  // Toggle the sidebar when the menu icon is clicked
+  menuToggle.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+    sidebar.classList.toggle("open");
+  });
+
+  // Close the sidebar when any nav-link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+    });
+  });
+
+  // Close the sidebar when clicking anywhere outside of it
+  document.addEventListener("click", (event) => {
+    // If the click happens outside the sidebar and the menu toggle, close the sidebar
+    if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+      sidebar.classList.remove("open");
+    }
+  });
+
+  // Prevent the sidebar from closing when clicking inside the sidebar
+  sidebar.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent event propagation to the document
+  });
+
+  // Close the sidebar if an overlay is present (optional)
+  if (overlay) {
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+    });
+  }
+});
+
+  
   
   // Configuration
   const CONFIG = {
