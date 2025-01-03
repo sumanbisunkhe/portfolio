@@ -126,7 +126,7 @@ graph LR
 ### 🔧 Installation Steps
 1. **Clone Repository**
 ```bash
-git clone https://github.com/sumanbisunkhe/portfolio-website.git
+git clone https://github.com/sumanbisunkhe/portfolio.git
 cd portfolio-website
 ```
 
