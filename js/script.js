@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Configuration
   const CONFIG = {
-    typingTexts: ['Java Developer', 'Tech Enthusiast', 'B.Sc.CSIT Student (4th.Sem)', 'Problem Solver'],
+    typingTexts: ['Java Enthusiast', 'Tech Enthusiast', 'B.Sc.CSIT Student', 'Learner'],
     typingSpeed: 100,
     eraseSpeed: 50,
     pauseDuration: 2000,
