@@ -999,7 +999,7 @@ body {
 
 .project-content h3 {
   font-size: 1.6rem;
-  var(--text-primary);
+  color: var(--text-primary);
   margin-bottom: 0.8rem;
 }
 

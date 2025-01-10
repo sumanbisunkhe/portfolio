@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://sumanbisunkhe.com.np/sitemap.xml
+Sitemap: https://www.sumanbisunkhe.com.np/sitemap.xml
+
+# Main sections
+Allow: /home
+Allow: /about
+Allow: /skills
+Allow: /projects
+Allow: /resume
+Allow: /contact
+
+# Crawl-delay
+Crawl-delay: 10
