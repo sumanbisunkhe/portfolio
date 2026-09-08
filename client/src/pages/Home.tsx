@@ -120,19 +120,14 @@ const capabilities = [
 
 const experiences = [
   {
-    range: "NOW — 2026",
-    role: "Senior Java Engineer",
-    focus: "Turning complex operational workflows into dependable platforms.",
+    range: "NOW — JUL 2025",
+    role: "Java Developer",
+    focus: "Building production-ready backend services, APIs, and scalable Java applications at Qpixel.",
   },
   {
-    range: "2022 — 2024",
-    role: "Backend Engineer",
-    focus: "Built high-throughput services and clear interfaces for product teams.",
-  },
-  {
-    range: "2019 — 2022",
-    role: "Software Engineer",
-    focus: "Started close to the data: integrations, transaction flows, and service foundations.",
+    range: "JUN 2025 — APR 2025",
+    role: "Java Developer Intern",
+    focus: "Built Spring Boot applications while contributing to backend services and API development in a production environment.",
   },
 ];
 
@@ -218,7 +213,7 @@ export default function Home() {
           <span>READING</span>
           <strong>{activeSection}</strong>
         </div>
-        <div className="rail-footer">BUILD / 01</div>
+        <div className="rail-footer"><span>BUILD / 01</span></div>
       </aside>
 
       <header className="site-header">
