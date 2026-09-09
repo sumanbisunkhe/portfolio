@@ -23,8 +23,16 @@ const codeKinetics = "/images/7.png";
 
 const navItems = [
   { label: "Work", href: "#work" },
-  { label: "Capabilities", href: "#capabilities" },
+  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
+];
+
+const sections = [
+  { id: "top", label: "INTRO" },
+  { id: "work", label: "WORK" },
+  { id: "skills", label: "SKILLS" },
+  { id: "experience", label: "EXPERIENCE" },
+  { id: "contact", label: "CONTACT" },
 ];
 
 const projects = [
@@ -145,11 +153,21 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
+function Logo({ stacked = false }: { stacked?: boolean }) {
+  return (
+    <span className={stacked ? "logo logo--stacked" : "logo"}>
+      <span className="logo-first">SUMAN</span>
+      <span className="logo-last">BISUNKHE</span>
+    </span>
+  );
+}
+
 export default function Home() {
   const [openProject, setOpenProject] = useState<string | null>("Ledgerline");
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [activeSection, setActiveSection] = useState("INIT");
+  const [activeSection, setActiveSection] = useState("INTRO");
+  const [isScrolled, setIsScrolled] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   const activeProject = useMemo(
@@ -158,21 +176,53 @@ export default function Home() {
   );
 
   useEffect(() => {
-    const sections = ["top", "work", "capabilities", "experience", "contact"];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id.toUpperCase());
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
+    let ticking = false;
+    const update = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const threshold = window.innerHeight * 0.3;
+        let current = sections[0].label;
+        for (const { id, label } of sections) {
+          const element = document.getElementById(id);
+          if (element && element.getBoundingClientRect().top <= threshold) {
+            current = label;
+          }
+        }
+        setActiveSection(current);
+        ticking = false;
+      });
+    };
 
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    window.addEventListener("load", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      window.removeEventListener("load", update);
+    };
+  }, []);
 
-    return () => observer.disconnect();
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 84);
+        ticking = false;
+      });
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const copyEmail = async () => {
@@ -191,21 +241,15 @@ export default function Home() {
   };
 
   return (
-    <main className="runtime-page" id="top">
+    <main className={`runtime-page${isScrolled ? " is-scrolled" : ""}`}>
       <aside className="runtime-rail" aria-label="Section progress">
-        <a href="#top" className="rail-mark" aria-label="Back to top">
-          <span className="rail-initials">S<b>B</b></span>
+        <a href="#top" className="rail-mark" aria-label="SUMAN BISUNKHE — back to top">
+          <Logo stacked />
         </a>
         <nav className="rail-nav" aria-label="Runtime section navigation">
-          {[
-            ["00", "top", "INIT"],
-            ["01", "work", "WORK"],
-            ["02", "capabilities", "BUILD"],
-            ["03", "experience", "LOG"],
-            ["04", "contact", "PING"],
-          ].map(([index, href, label]) => (
-            <a key={href} href={`#${href}`} className={activeSection === href.toUpperCase() ? "is-current" : ""}>
-              <span>{index}</span><i aria-hidden="true" /><b>{label}</b>
+          {sections.map(({ id, label }, index) => (
+            <a key={id} href={`#${id}`} className={activeSection === label ? "is-current" : ""}>
+              <span>0{index}</span><i aria-hidden="true" /><b>{label}</b>
             </a>
           ))}
         </nav>
@@ -213,12 +257,12 @@ export default function Home() {
           <span>READING</span>
           <strong>{activeSection}</strong>
         </div>
-        <div className="rail-footer"><span>BUILD / 01</span></div>
+        
       </aside>
 
       <header className="site-header">
-        <a href="#top" className="wordmark" aria-label="Java developer portfolio home">
-          <span>SUMAN <i>BISUNKHE</i></span>
+        <a href="#top" className="wordmark" aria-label="SUMAN BISUNKHE — home">
+          <Logo />
         </a>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navItems.map((item) => (
@@ -263,7 +307,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section className="hero-section" aria-labelledby="hero-title">
+      <section className="hero-section" id="top" aria-labelledby="hero-title">
         <div className="hero-copy">
           <motion.div
             className="eyebrow"
@@ -271,7 +315,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
           >
-            <span className="pulse-dot" /> JAVA ENGINEER / SYSTEMS THINKER
+            <span className="pulse-dot" /> SOFTWARE ENGINEER / JAVA
           </motion.div>
           <h1 id="hero-title">
             <motion.span
